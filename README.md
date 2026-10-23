@@ -2,6 +2,8 @@
 
 > An anonymous confessions board with **production-style authentication**: bcrypt hashing, sessions stored in PostgreSQL, Passport.js (email/password and optional Google OAuth 2.0), CSRF tokens, rate-limited logins and authorisation enforced in SQL.
 
+**🔗 Live demo:** https://whisper-rfuo.onrender.com/ *(free tier: the first visit after idle takes ~30–60s to wake up)*
+
 [![test](https://github.com/himanshuuem/whisper/actions/workflows/test.yml/badge.svg)](https://github.com/himanshuuem/whisper/actions/workflows/test.yml)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?logo=postgresql&logoColor=white)
 ![Passport](https://img.shields.io/badge/Passport.js-34E27A?logo=passport&logoColor=black)

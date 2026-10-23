@@ -1,0 +1,16 @@
+<%- include("partials/head", { title: "Say it quietly" }) %>
+<section class="hero">
+  <h1>Say the thing you've never said out loud.</h1>
+  <p>Whisper is an anonymous board for confessions, hopes and small wins. Every post gets a random alias, so even your own whispers can't be linked together.</p>
+  <div class="cta">
+    <a href="/register" class="btn">Start whispering</a>
+    <a href="/login" class="btn ghost">I have an account</a>
+  </div>
+  <ul class="features">
+    <li><strong>bcrypt</strong> password hashing (12 rounds)</li>
+    <li><strong>Sessions</strong> stored in PostgreSQL</li>
+    <li><strong>CSRF tokens</strong> on every form</li>
+    <li><strong>Rate-limited</strong> logins</li>
+  </ul>
+</section>
+<%- include("partials/foot") %>

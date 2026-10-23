@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= title %> · Whisper</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Figtree:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="nav">
+    <a href="/" class="logo">🤫 whisper</a>
+    <% if (user) { %>
+      <nav class="nav-links">
+        <a href="/feed">Feed</a>
+        <a href="/account">Account</a>
+        <form method="post" action="/logout"><input type="hidden" name="_csrf" value="<%= csrfToken %>"><button type="submit" class="link">Log out</button></form>
+      </nav>
+    <% } else { %>
+      <nav class="nav-links"><a href="/login">Log in</a><a href="/register" class="pill">Sign up</a></nav>
+    <% } %>
+  </header>
+  <% if (flash) { %><p class="flash <%= flash.type %>" role="status"><%= flash.text %></p><% } %>
+  <main class="page">

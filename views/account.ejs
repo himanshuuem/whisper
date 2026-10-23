@@ -1,0 +1,12 @@
+<%- include("partials/head", { title: "Account" }) %>
+<section class="auth-card">
+  <h1>Your account</h1>
+  <p>Signed in as <strong><%= user.email %></strong>.</p>
+  <p>You've posted <strong><%= count %></strong> whisper<%= count === 1 ? "" : "s" %>. Only you can see that number.</p>
+  <form method="post" action="/account/delete" class="danger">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <p>Deleting your account permanently removes it and every whisper and heart you've made.</p>
+    <button type="submit" class="btn danger-btn">Delete my account</button>
+  </form>
+</section>
+<%- include("partials/foot") %>

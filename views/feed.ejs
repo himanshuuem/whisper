@@ -1,0 +1,43 @@
+<%- include("partials/head", { title: "Feed" }) %>
+<form method="post" action="/whispers" class="composer">
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+  <label for="body" class="visually-hidden">Your whisper</label>
+  <textarea id="body" name="body" rows="3" maxlength="500" minlength="3" required placeholder="What have you never told anyone?"></textarea>
+  <div class="composer-row">
+    <fieldset class="moods">
+      <legend class="visually-hidden">Mood</legend>
+      <% Object.entries(MOODS).forEach(([key, emoji], i) => { %>
+        <label class="mood"><input type="radio" name="mood" value="<%= key %>" <%= i === 0 ? "checked" : "" %>><span><%= emoji %> <%= key %></span></label>
+      <% }) %>
+    </fieldset>
+    <button type="submit" class="btn">Whisper</button>
+  </div>
+</form>
+
+<nav class="filters" aria-label="Filter by mood">
+  <a href="/feed" class="<%= !mood ? 'on' : '' %>">All</a>
+  <% Object.entries(MOODS).forEach(([key, emoji]) => { %><a href="/feed?mood=<%= key %>" class="<%= mood === key ? 'on' : '' %>"><%= emoji %> <%= key %></a><% }) %>
+</nav>
+
+<% if (!items.length) { %><p class="empty">It's quiet here. Be the first to whisper.</p><% } %>
+<ul class="whispers">
+  <% items.forEach((w) => { %>
+    <li class="whisper mood-<%= w.mood %>" id="w<%= w.id %>">
+      <p class="who"><span class="avatar" aria-hidden="true"><%= MOODS[w.mood] %></span> <%= w.alias %><% if (w.mine) { %> <span class="you">you</span><% } %> · <time datetime="<%= w.created_at.toISOString() %>"><%= w.created_at.toLocaleDateString("en-IN", { day: "numeric", month: "short" }) %></time></p>
+      <p class="body"><%= w.body %></p>
+      <div class="row">
+        <form method="post" action="/whispers/<%= w.id %>/heart">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <button type="submit" class="heart <%= w.hearted ? 'on' : '' %>" aria-pressed="<%= w.hearted %>" aria-label="<%= w.hearted ? 'Remove heart' : 'Send a heart' %>"><%= w.hearted ? "♥" : "♡" %> <%= w.hearts %></button>
+        </form>
+        <% if (w.mine) { %>
+          <form method="post" action="/whispers/<%= w.id %>/delete">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <button type="submit" class="link">Delete</button>
+          </form>
+        <% } %>
+      </div>
+    </li>
+  <% }) %>
+</ul>
+<%- include("partials/foot") %>

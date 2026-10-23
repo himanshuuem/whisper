@@ -1,0 +1,16 @@
+<%- include("partials/head", { title: "Sign up" }) %>
+<section class="auth-card">
+  <h1>Create an account</h1>
+  <% if (errors.length) { %><div class="alert" role="alert"><% errors.forEach((e) => { %><p><%= e %></p><% }) %></div><% } %>
+  <form method="post" action="/register" class="stack">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <label>Email <input type="email" name="email" value="<%= email %>" required autocomplete="email"></label>
+    <label>Password <span class="hint">10+ characters, a letter and a number</span>
+      <input type="password" name="password" required minlength="10" maxlength="72" autocomplete="new-password">
+    </label>
+    <button type="submit" class="btn">Sign up</button>
+  </form>
+  <% if (googleEnabled) { %><a class="btn google" href="/auth/google">Continue with Google</a><% } %>
+  <p class="switch">Already have an account? <a href="/login">Log in</a></p>
+</section>
+<%- include("partials/foot") %>

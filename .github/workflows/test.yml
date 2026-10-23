@@ -22,3 +22,7 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm test
+      - name: Test again inside a dedicated schema (shared-database mode)
+        env:
+          DB_SCHEMA: ci_schema
+        run: npm run db:setup && npm test
